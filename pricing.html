@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gridlock Customs — Service Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800;900&family=Saira:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0c0a;
+    --bg2:#0e110e;
+    --card:#13171300;
+    --card-solid:#141814;
+    --line:#222a22;
+    --green:#3ddc6b;
+    --green-dim:#2aa752;
+    --green-glow:rgba(61,220,107,.18);
+    --text:#e9efe9;
+    --muted:#8b968b;
+    --faint:#5d665d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:
+      radial-gradient(1100px 600px at 80% -10%, rgba(61,220,107,.07), transparent 60%),
+      radial-gradient(900px 500px at -10% 20%, rgba(61,220,107,.05), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Saira',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    padding:0 22px 90px;
+  }
+  .wrap{max-width:1080px;margin:0 auto}
+
+  /* ---------- header ---------- */
+  header{
+    padding:64px 0 30px;
+    text-align:center;
+    position:relative;
+  }
+  .kicker{
+    font-family:'Saira Condensed',sans-serif;
+    font-weight:700;
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    font-size:13px;
+    color:var(--green);
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Saira Condensed',sans-serif;
+    font-weight:900;
+    font-size:clamp(46px,9vw,92px);
+    line-height:.92;
+    letter-spacing:-.01em;
+    text-transform:uppercase;
+  }
+  h1 span{color:var(--green)}
+  .tagline{
+    margin-top:18px;
+    color:var(--muted);
+    font-size:17px;
+    letter-spacing:.02em;
+  }
+  .tagline b{color:var(--text);font-weight:600}
+  .rule{
+    width:62px;height:3px;background:var(--green);
+    margin:26px auto 0;border-radius:2px;
+    box-shadow:0 0 18px var(--green-glow);
+  }
+
+  /* ---------- section heads ---------- */
+  .svc-head{
+    display:flex;align-items:baseline;gap:14px;
+    margin:54px 0 22px;
+  }
+  .svc-num{
+    font-family:'Saira Condensed',sans-serif;
+    font-weight:800;font-size:15px;color:var(--green-dim);
+    letter-spacing:.1em;
+  }
+  .svc-title{
+    font-family:'Saira Condensed',sans-serif;
+    font-weight:800;font-size:clamp(26px,4vw,38px);
+    text-transform:uppercase;letter-spacing:.01em;
+  }
+  .svc-line{flex:1;height:1px;background:var(--line);align-self:center}
+
+  /* ---------- cards ---------- */
+  .card{
+    border:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(255,255,255,.015),rgba(0,0,0,.12));
+    border-radius:14px;
+    padding:26px 28px;
+    transition:border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{
+    border-color:var(--green-dim);
+    transform:translateY(-3px);
+    box-shadow:0 18px 40px -24px var(--green-glow);
+  }
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+
+  .card h3{
+    font-family:'Saira Condensed',sans-serif;
+    font-weight:700;font-size:23px;text-transform:uppercase;
+    letter-spacing:.02em;margin-bottom:8px;
+  }
+  .card p.desc{color:var(--muted);font-size:15px;margin-bottom:18px}
+  .price{
+    display:flex;align-items:baseline;gap:8px;
+    margin-top:auto;
+  }
+  .price .from{
+    font-size:12px;text-transform:uppercase;letter-spacing:.18em;
+    color:var(--faint);font-family:'Saira Condensed',sans-serif;font-weight:700;
+  }
+  .price .amt{
+    font-family:'Saira Condensed',sans-serif;
+    font-weight:800;font-size:34px;color:var(--green);
+    text-shadow:0 0 22px var(--green-glow);
+  }
+  .price .unit{color:var(--muted);font-size:14px}
+
+  /* tier rows for correction / detailing */
+  .tiers{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+  .tier{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:14px;padding:14px 2px;border-bottom:1px solid var(--line);
+  }
+  .tier:last-child{border-bottom:none}
+  .tier .t-name{font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
+  .tier .t-desc{color:var(--muted);font-size:13.5px;margin-top:2px;font-weight:400;text-transform:none;letter-spacing:0}
+  .tier .t-price{
+    font-family:'Saira Condensed',sans-serif;font-weight:800;font-size:24px;
+    color:var(--green);white-space:nowrap;
+  }
+  .tier .t-price small{color:var(--faint);font-size:11px;letter-spacing:.16em;display:block;text-align:right;font-weight:700}
+
+  /* addons */
+  .addons{
+    margin-top:18px;border-top:1px dashed var(--line);padding-top:18px;
+  }
+  .addons .a-label{
+    font-family:'Saira Condensed',sans-serif;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;font-size:12px;color:var(--green-dim);margin-bottom:12px;
+  }
+  .addons ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 26px}
+  .addons li{display:flex;justify-content:space-between;font-size:14.5px;color:var(--text);border-bottom:1px solid #1a201a;padding-bottom:6px}
+  .addons li span{color:var(--muted)}
+
+  /* per-piece body kit */
+  .pieces{display:grid;grid-template-columns:1fr 1fr;gap:9px 30px;margin-top:4px}
+  .pieces div{display:flex;justify-content:space-between;font-size:15px;border-bottom:1px solid #1a201a;padding-bottom:8px}
+  .pieces div b{font-family:'Saira Condensed',sans-serif;color:var(--green);font-weight:700;font-size:16px}
+
+  /* discount banner */
+  .banner{
+    margin-top:30px;border:1px solid var(--green-dim);border-radius:14px;
+    background:linear-gradient(135deg,rgba(61,220,107,.10),rgba(61,220,107,.02));
+    padding:26px 30px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  }
+  .banner .big{
+    font-family:'Saira Condensed',sans-serif;font-weight:900;
+    font-size:clamp(30px,6vw,46px);color:var(--green);line-height:1;
+    text-shadow:0 0 24px var(--green-glow);
+  }
+  .banner .bt{font-family:'Saira Condensed',sans-serif;font-weight:800;text-transform:uppercase;font-size:19px;letter-spacing:.02em}
+  .banner .bd{color:var(--muted);font-size:14.5px;margin-top:3px}
+
+  /* info strip */
+  .info{
+    margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  }
+  .info .ic{
+    border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:rgba(255,255,255,.012);
+  }
+  .info .ic h4{font-family:'Saira Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:16px;margin-bottom:6px}
+  .info .ic h4 em{color:var(--green);font-style:normal}
+  .info .ic p{color:var(--muted);font-size:14px;line-height:1.55}
+
+  footer{
+    margin-top:48px;text-align:center;color:var(--faint);font-size:13px;
+    border-top:1px solid var(--line);padding-top:26px;line-height:1.7;
+  }
+  footer b{color:var(--muted);font-weight:600}
+
+  /* entrance animation */
+  .reveal{opacity:0;transform:translateY(16px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  @media(max-width:720px){
+    .grid2,.grid3,.info{grid-template-columns:1fr}
+    .addons ul,.pieces{grid-template-columns:1fr}
+    .tier{flex-wrap:wrap;gap:4px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="index.html" style="display:inline-block;margin-top:30px;color:var(--muted);text-decoration:none;font-family:'Saira Condensed',sans-serif;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:12px;transition:color .2s" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--muted)'">&larr; Back to Gridlock Customs</a>
+
+  <header class="reveal">
+    <div class="kicker">Gridlock Customs</div>
+    <h1>Service <span>Menu</span></h1>
+    <p class="tagline"><b>Mobile by design</b> — we bring the shop to your driveway.</p>
+    <div class="rule"></div>
+  </header>
+
+  <!-- 01 AMBIENT LIGHTING -->
+  <div class="svc-head reveal" style="animation-delay:.05s">
+    <span class="svc-num">01</span>
+    <span class="svc-title">Ambient Lighting</span>
+    <span class="svc-line"></span>
+  </div>
+  <div class="grid3">
+    <div class="card reveal" style="animation-delay:.08s">
+      <h3>Single Zone</h3>
+      <p class="desc">Footwells, trunk, or frunk — one clean lit area.</p>
+      <div class="price"><span class="from">From</span><span class="amt">$90</span></div>
+    </div>
+    <div class="card reveal" style="animation-delay:.12s">
+      <h3>Full Interior</h3>
+      <p class="desc">Footwells, doors, and dash trim wired and accented.</p>
+      <div class="price"><span class="from">From</span><span class="amt">$200</span></div>
+    </div>
+    <div class="card reveal" style="animation-delay:.16s">
+      <h3>Underglow</h3>
+      <p class="desc">Exterior underbody glow, clean mounting & wiring.</p>
+      <div class="price"><span class="from">From</span><span class="amt">$150</span></div>
+    </div>
+  </div>
+  <p class="desc" style="margin-top:14px;color:var(--faint);font-size:13.5px">You supply the kit — we handle the install. Combo / whole-car builds quoted on request.</p>
+
+  <!-- 02 BODY KIT -->
+  <div class="svc-head reveal" style="animation-delay:.05s">
+    <span class="svc-num">02</span>
+    <span class="svc-title">Body Kit</span>
+    <span class="svc-line"></span>
+  </div>
+  <div class="card reveal" style="animation-delay:.1s">
+    <p class="desc" style="margin-bottom:20px">Side skirts, front lips, rear bumpers, mirror caps, wings &amp; exterior accessories — installed precise. You provide the parts; need recommendations first? We'll help you spec them. <b style="color:var(--text)">Install labor, per piece:</b></p>
+    <div class="pieces">
+      <div><span>Front Lip / Splitter</span><b>from $120</b></div>
+      <div><span>Side Skirts (pair)</span><b>from $150</b></div>
+      <div><span>Rear Bumper / Diffuser</span><b>from $200</b></div>
+      <div><span>Spoiler / Wing</span><b>from $80</b></div>
+      <div><span>Mirror Caps / Trim</span><b>from $40</b></div>
+      <div><span>Full Kit (bundled)</span><b>from $500</b></div>
+    </div>
+  </div>
+
+  <!-- 03 PAINT CORRECTION -->
+  <div class="svc-head reveal" style="animation-delay:.05s">
+    <span class="svc-num">03</span>
+    <span class="svc-title">Paint Correction</span>
+    <span class="svc-line"></span>
+  </div>
+  <div class="card reveal" style="animation-delay:.1s">
+    <p class="desc" style="margin-bottom:6px">Machine polishing that cuts swirls, scratches &amp; oxidation back out of your clear coat. Every job starts with an inspection and paint-thickness reading. <b style="color:var(--text)">Sedan pricing — SUVs &amp; trucks quoted higher.</b></p>
+    <div class="tiers">
+      <div class="tier">
+        <div><div class="t-name">Paint Enhancement</div><div class="t-desc">One-step gloss boost for light defects &amp; daily drivers</div></div>
+        <div class="t-price">$250<small>Starting</small></div>
+      </div>
+      <div class="tier">
+        <div><div class="t-name">1-Step Correction</div><div class="t-desc">Removes light–medium swirls, buffer trails &amp; water spots</div></div>
+        <div class="t-price">$400<small>Starting</small></div>
+      </div>
+      <div class="tier">
+        <div><div class="t-name">2-Step Correction</div><div class="t-desc">Cut + refine for deeper defects, ~85–95% correction</div></div>
+        <div class="t-price">$700<small>Starting</small></div>
+      </div>
+      <div class="tier">
+        <div><div class="t-name">Multi-Step (3-Step)</div><div class="t-desc">Show-quality restoration for darker colors &amp; weekend cars</div></div>
+        <div class="t-price">$1,100<small>Starting</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 DETAILING -->
+  <div class="svc-head reveal" style="animation-delay:.05s">
+    <span class="svc-num">04</span>
+    <span class="svc-title">Detailing</span>
+    <span class="svc-line"></span>
+  </div>
+  <div class="grid3">
+    <div class="card reveal" style="animation-delay:.08s">
+      <h3>Interior</h3>
+      <p class="desc">Deep clean — vacuum, steam, sanitize, hair &amp; stain removal.</p>
+      <div class="price"><span class="from">From</span><span class="amt">$130</span></div>
+    </div>
+    <div class="card reveal" style="animation-delay:.12s">
+      <h3>Exterior</h3>
+      <p class="desc">Hand wash, decon, windows, bug removal, wheels &amp; trim shine.</p>
+      <div class="price"><span class="from">From</span><span class="amt">$110</span></div>
+    </div>
+    <div class="card reveal" style="animation-delay:.16s">
+      <h3>Full Detail</h3>
+      <p class="desc">The works — interior + exterior, bundled below separate pricing.</p>
+      <div class="price"><span class="from">From</span><span class="amt">$220</span></div>
+    </div>
+  </div>
+  <div class="card reveal" style="animation-delay:.2s;margin-top:18px">
+    <div class="addons" style="border-top:none;padding-top:0;margin-top:0">
+      <div class="a-label">Add-ons</div>
+      <ul>
+        <li>Temp Ceramic — Paint <span>from $75</span></li>
+        <li>Stain / Odor Removal <span>from $30</span></li>
+        <li>Temp Ceramic — Wheels/Tires <span>from $30</span></li>
+        <li>Heavy Pet Hair <span>from $30</span></li>
+        <li>Temp Ceramic — Glass <span>from $40</span></li>
+        <li>Engine Bay Clean <span>from $40</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MULTI-CAR -->
+  <div class="banner reveal" style="animation-delay:.05s">
+    <div class="big">10–15%<br>OFF</div>
+    <div>
+      <div class="bt">Multi-Car Discount</div>
+      <div class="bd">Booking more than one vehicle at the same stop? 10% off the second, 15% off three or more. The whole crew's cars, done in one visit.</div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="info reveal" style="animation-delay:.05s">
+    <div class="ic">
+      <h4>We Come <em>To You</em></h4>
+      <p>Fully mobile. We bring the tools, water, and power — you don't move the car.</p>
+    </div>
+    <div class="ic">
+      <h4>Service <em>Area</em></h4>
+      <p>Within ~1 hour of Harrisburg &amp; Charlotte, NC. Outside that? Just ask.</p>
+    </div>
+    <div class="ic">
+      <h4>Every Job <em>Quoted</em></h4>
+      <p>Prices are starting points. Final quote depends on your vehicle's size &amp; condition.</p>
+    </div>
+  </div>
+
+  <footer class="reveal" style="animation-delay:.1s">
+    <b>Gridlock Customs</b> · Mobile Auto Styling &amp; Detailing · Harrisburg &amp; Charlotte, NC<br>
+    All prices are starting estimates. Parts are separate from labor where noted. Book a quote for an exact number.
+  </footer>
+
+</div>
+</body>
+</html>
