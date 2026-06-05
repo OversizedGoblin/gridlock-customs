@@ -219,8 +219,8 @@
     </div>
     <div class="service-card">
       <span class="service-icon">◈</span>
-      <div class="service-name">Paint Correction</div>
-      <div class="service-desc">Multi-stage machine polishing that cuts out swirl marks, scratches, and oxidation to restore deep gloss and clarity. Ideal prep before a ceramic coating, or a standalone fix to bring tired, dull paint back to life.</div>
+      <div class="service-name">Paint Correction &amp; Ceramic</div>
+      <div class="service-desc">Multi-stage machine polishing that cuts out swirl marks, scratches, and oxidation to restore deep gloss and clarity — then an optional CQuartz UK 3.0 ceramic coating to lock it in, backed by an up-to-3-year guarantee with proper maintenance.</div>
       <div class="service-price">Labor quoted per job</div>
     </div>
     <div class="service-card">
@@ -434,7 +434,7 @@
           <option value="">Select a service...</option>
           <option>Body Kit</option>
           <option>Ambient Lighting</option>
-          <option>Paint Correction</option>
+          <option>Paint Correction &amp; Ceramic</option>
           <option>Detailing</option>
           <option>Multiple / Not Sure</option>
         </select>
@@ -506,6 +506,24 @@
     })
     .finally(function () { btn.disabled = false; });
   });
+})();
+
+// Pre-fill the quote form when arriving from the "Book an Inspection" button (index.html?inspect=1)
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('inspect') !== '1') return;
+  var sel = document.querySelector('#quoteForm select[name="service"]');
+  if (sel) {
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].text.toLowerCase().indexOf('paint correction') > -1) { sel.selectedIndex = i; break; }
+    }
+  }
+  var msg = document.querySelector('#quoteForm textarea[name="message"]');
+  if (msg && !msg.value) {
+    msg.value = "I'd like to book a paint correction & ceramic coating inspection.";
+  }
+  var c = document.getElementById('contact');
+  if (c) { c.scrollIntoView({ behavior: 'smooth' }); }
 })();
 </script>
 </body>

@@ -20,6 +20,8 @@
     --text:#e9efe9;
     --muted:#8b968b;
     --faint:#5d665d;
+    --warn:#e8b54c;
+    --warn-glow:rgba(232,181,76,.22);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{
@@ -190,14 +192,64 @@
   }
   footer b{color:var(--muted);font-weight:600}
 
+  /* ceramic coating add-on */
+  .cc-add{
+    margin-top:16px;border:1px solid var(--green-dim);border-radius:14px;
+    background:linear-gradient(135deg,rgba(61,220,107,.11),rgba(61,220,107,.02));
+    padding:24px 28px;display:flex;align-items:center;gap:26px;flex-wrap:wrap;
+  }
+  .cc-add .cc-price{font-family:'Saira Condensed',sans-serif;font-weight:900;font-size:clamp(38px,6vw,54px);color:var(--green);line-height:1;text-shadow:0 0 24px var(--green-glow);white-space:nowrap}
+  .cc-add .cc-price small{display:block;font-size:11px;letter-spacing:.16em;color:var(--faint);font-weight:700;margin-top:4px}
+  .cc-add .cc-body{flex:1;min-width:250px}
+  .cc-add .cc-t{font-family:'Saira Condensed',sans-serif;font-weight:800;text-transform:uppercase;font-size:22px;letter-spacing:.02em}
+  .cc-add .cc-d{color:var(--muted);font-size:14.5px;margin-top:5px;line-height:1.55}
+  .cc-add .cc-guarantee{display:inline-block;margin-top:12px;border:1px solid var(--green-dim);border-radius:999px;padding:6px 16px;font-family:'Saira Condensed',sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:var(--green)}
+
+  /* process + requirements labels */
+  .cc-label{font-family:'Saira Condensed',sans-serif;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--green-dim);margin-bottom:16px}
+  .cc-block{margin-top:30px}
+
+  /* process steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .pstep{border:1px solid var(--line);border-radius:12px;padding:18px 16px;background:rgba(255,255,255,.012)}
+  .pstep .n{font-family:'Saira Condensed',sans-serif;font-weight:900;font-size:28px;color:var(--green);opacity:.5;line-height:1}
+  .pstep .h{font-family:'Saira Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.02em;font-size:15px;margin:8px 0 5px}
+  .pstep .p{color:var(--muted);font-size:12.5px;line-height:1.5}
+
+  /* requirements / maintenance */
+  .req-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .req{border:1px solid var(--line);border-radius:12px;padding:22px 24px;background:rgba(255,255,255,.012)}
+  .req h4{font-family:'Saira Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.03em;font-size:17px;margin-bottom:14px}
+  .req h4 em{color:var(--green);font-style:normal}
+  .req ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+  .req li{position:relative;padding-left:18px;font-size:13.8px;color:var(--text);line-height:1.5}
+  .req li::before{content:'';position:absolute;left:0;top:7px;width:7px;height:7px;border-radius:2px;background:var(--green);box-shadow:0 0 8px var(--green-glow)}
+  .reassure{margin-top:16px;border-left:2px solid var(--green);padding:6px 0 6px 18px;color:var(--text);font-size:15px;line-height:1.6}
+  .reassure b{color:var(--green);font-weight:600}
+
+  /* what it does / doesn't */
+  .req li .grade{font-family:'Saira Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px;color:var(--green);margin-left:4px}
+  .req.warn{border-color:rgba(232,181,76,.4);background:linear-gradient(135deg,rgba(232,181,76,.07),rgba(232,181,76,.01))}
+  .req.warn h4 em{color:var(--warn)}
+  .req.warn li::before{background:var(--warn);box-shadow:0 0 8px var(--warn-glow);border-radius:50%}
+  .req.warn p{color:var(--muted);font-size:13.8px;line-height:1.6;margin-bottom:12px}
+  .req.warn p b{color:var(--text);font-weight:600}
+
+  /* book-an-inspection CTA */
+  .cta-wrap{margin-top:28px;text-align:center}
+  .cta-btn{display:inline-block;background:var(--green);color:#06140a;text-decoration:none;font-family:'Saira Condensed',sans-serif;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:17px;padding:16px 44px;border-radius:10px;box-shadow:0 0 30px var(--green-glow);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+  .cta-btn:hover{background:#4dee7b;transform:translateY(-2px);box-shadow:0 14px 38px -10px var(--green-glow)}
+  .cta-sub{margin-top:11px;color:var(--muted);font-size:13.5px}
+
   /* entrance animation */
   .reveal{opacity:0;transform:translateY(16px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
   @keyframes rise{to{opacity:1;transform:none}}
 
   @media(max-width:720px){
-    .grid2,.grid3,.info{grid-template-columns:1fr}
+    .grid2,.grid3,.info,.req-grid{grid-template-columns:1fr}
     .addons ul,.pieces{grid-template-columns:1fr}
     .tier{flex-wrap:wrap;gap:4px}
+    .steps{grid-template-columns:1fr 1fr}
   }
 </style>
 </head>
@@ -256,14 +308,14 @@
     </div>
   </div>
 
-  <!-- 03 PAINT CORRECTION -->
+  <!-- 03 PAINT CORRECTION & CERAMIC COATINGS -->
   <div class="svc-head reveal" style="animation-delay:.05s">
     <span class="svc-num">03</span>
-    <span class="svc-title">Paint Correction</span>
+    <span class="svc-title">Paint Correction &amp; Ceramic Coatings</span>
     <span class="svc-line"></span>
   </div>
   <div class="card reveal" style="animation-delay:.1s">
-    <p class="desc" style="margin-bottom:6px">Machine polishing that cuts swirls, scratches &amp; oxidation back out of your clear coat. Every job starts with an inspection and paint-thickness reading. <b style="color:var(--text)">Sedan pricing — SUVs &amp; trucks quoted higher.</b></p>
+    <p class="desc" style="margin-bottom:6px">Machine polishing that cuts swirls, scratches &amp; oxidation back out of your clear coat — then, if you want it, a ceramic coating to lock that finish in. Every job starts with an inspection and paint-thickness reading. <b style="color:var(--text)">Sedan pricing — SUVs &amp; trucks quoted higher.</b></p>
     <div class="tiers">
       <div class="tier">
         <div><div class="t-name">Paint Enhancement</div><div class="t-desc">One-step gloss boost for light defects &amp; daily drivers</div></div>
@@ -282,6 +334,82 @@
         <div class="t-price">$1,100<small>Starting</small></div>
       </div>
     </div>
+  </div>
+
+  <!-- ceramic add-on -->
+  <div class="cc-add reveal" style="animation-delay:.12s">
+    <div class="cc-price">+ $300<small>Add to any correction</small></div>
+    <div class="cc-body">
+      <div class="cc-t">Ceramic Coating</div>
+      <div class="cc-d">CarPro CQuartz UK 3.0 — laid down in two hand-applied coats over freshly corrected paint for deep gloss, slick water-shedding protection, and far easier washes. Flat fee on top of any correction level. <b style="color:var(--text)">+ $75 for SUVs &amp; large vehicles.</b></div>
+      <span class="cc-guarantee">★ Up to 3-Year Guarantee — with proper maintenance</span>
+    </div>
+  </div>
+
+  <!-- what it does / doesn't -->
+  <div class="cc-block reveal" style="animation-delay:.13s">
+    <div class="req-grid">
+      <div class="req">
+        <h4>What Your <em>Coating Does</em></h4>
+        <ul>
+          <li><span><b>Blocks UV &amp; oxidation</b> — shields your clear coat from sun fade and chalking.<span class="grade">Very effective</span></span></li>
+          <li><span><b>Resists chemicals &amp; stains</b> — bird droppings, sap, bug guts and water spots sit on top and rinse off before they etch.<span class="grade">Strong</span></span></li>
+          <li><span><b>Sheds water &amp; holds gloss</b> — water sheets off, dirt won't bond, washes get quicker and the deep shine lasts for years.<span class="grade">Excellent</span></span></li>
+        </ul>
+      </div>
+      <div class="req warn">
+        <h4>What It Does <em>NOT Do</em></h4>
+        <p>A ceramic coating and paint correction are <b>not the same as PPF (paint protection film).</b> The coating is a thin, hard chemical and UV barrier built for gloss and easy cleaning.</p>
+        <p>It will <b>not stop rock chips, road-debris gouges, or door dings</b>, and it won't fill or prevent deep scratches. For physical impact protection, that's PPF — a different product. We'll always be straight with you about which one fits your goals.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- how it runs -->
+  <div class="cc-block reveal" style="animation-delay:.14s">
+    <div class="cc-label">How a Correction + Coating Job Runs</div>
+    <div class="steps">
+      <div class="pstep"><div class="n">01</div><div class="h">Light Wash &amp; Read</div><div class="p">A light surface wash to lift loose dirt, then paint-thickness gauge readings across the panels.</div></div>
+      <div class="pstep"><div class="n">02</div><div class="h">Review &amp; Choose</div><div class="p">We walk you through what the readings show and pick the correction level that fits your paint — together.</div></div>
+      <div class="pstep"><div class="n">03</div><div class="h">Decontaminate</div><div class="p">Full decon wash, clay bar, and iron-fallout removal until the paint is surgically clean.</div></div>
+      <div class="pstep"><div class="n">04</div><div class="h">Correct</div><div class="p">Your chosen level of machine polishing to cut the defects out of the clear coat.</div></div>
+      <div class="pstep"><div class="n">05</div><div class="h">Prep Wipe</div><div class="p">Panel-by-panel solvent wipe so the coating bonds to bare, oil-free paint.</div></div>
+      <div class="pstep"><div class="n">06</div><div class="h">Coat</div><div class="p">Two layers of CQuartz UK 3.0 applied by hand, one panel at a time.</div></div>
+      <div class="pstep"><div class="n">07</div><div class="h">Cure</div><div class="p">Left undisturbed overnight in a garage to fully flash off and harden.</div></div>
+      <div class="pstep"><div class="n">08</div><div class="h">Hand Back</div><div class="p">Final inspection, then your car and a maintenance plan go home with you.</div></div>
+    </div>
+    <p class="reassure">We don't rush coatings. A ceramic is only as good as the prep beneath it, so every job gets meticulous correction and slow, careful, panel-by-panel application — <b>that care is what you're paying for, and what makes the finish last.</b></p>
+  </div>
+
+  <!-- requirements -->
+  <div class="cc-block reveal" style="animation-delay:.16s">
+    <div class="req-grid">
+      <div class="req">
+        <h4>Keep Your <em>Guarantee</em> Valid</h4>
+        <ul>
+          <li>Wait at least <b>7 days before the first wash</b> — let the coating fully cure.</li>
+          <li>Wash by hand at home; <b>skip automatic tunnels and brush car washes</b>.</li>
+          <li>Use a pH-neutral car soap — <b>avoid harsh chemicals and degreasers</b>.</li>
+          <li>Don't let bird droppings, sap, or bug guts sit — rinse them off promptly.</li>
+          <li>One <b>annual check-up &amp; top-up</b> with us — from <b>$90/yr</b> — keeps the coating (and guarantee) alive.</li>
+        </ul>
+      </div>
+      <div class="req">
+        <h4>Space, Cure &amp; <em>Logistics</em></h4>
+        <ul>
+          <li>Ceramic work needs a <b>spacious garage</b> — clean, covered, and dust-free for the cure.</li>
+          <li><b>No garage?</b> We offer free vehicle pickup within <b>~20 miles</b> of our Harrisburg &amp; Charlotte locations — we'll confirm with you directly.</li>
+          <li>If we pick it up, <b>the car stays with us</b> through the overnight cure.</li>
+          <li>Plan for the vehicle to be <b>out of service about a full day</b> for coating jobs.</li>
+          <li>Coating cures overnight; <b>no washing for the first 7 days</b> after pickup.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-wrap reveal" style="animation-delay:.18s">
+    <a href="index.html?inspect=1#contact" class="cta-btn">Book an Inspection →</a>
+    <div class="cta-sub">We'll read your paint and walk you through the right correction + coating — no pressure to commit.</div>
   </div>
 
   <!-- 04 DETAILING -->
