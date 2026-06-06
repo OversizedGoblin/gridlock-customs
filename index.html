@@ -120,6 +120,13 @@
   .footer-links { display: flex; gap: 24px; }
   .footer-links a { font-size: 12px; color: var(--gray); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
   .footer-links a:hover { color: var(--green); }
+  .team-contact { padding: 40px 48px; border-top: 1px solid var(--border); }
+  .tc-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; margin-bottom: 18px; }
+  .tc-grid { display: flex; flex-wrap: wrap; gap: 48px; }
+  .tc-name { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .tc-card a { display: block; font-size: 14px; color: var(--gray); text-decoration: none; letter-spacing: .5px; margin-bottom: 6px; transition: color 0.2s; }
+  .tc-card a:hover { color: var(--green); }
+  .tc-label { color: var(--green); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-right: 8px; }
   .glow-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--green), transparent); opacity: 0.3; }
 
 
@@ -165,7 +172,8 @@
     .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     .hero-stats { gap: 24px; }
     footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
-  }
+    .team-contact { padding: 32px 24px; }
+    .tc-grid { gap: 28px; }  }
 </style>
 </head>
 <body>
@@ -448,6 +456,22 @@
     </form>
   </div>
 </section>
+
+<div class="team-contact">
+  <div class="tc-title">Reach Us Directly</div>
+  <div class="tc-grid">
+    <div class="tc-card">
+      <div class="tc-name">Nate Galvez</div>
+      <a href="tel:9804458625"><span class="tc-label">Call</span>(980) 445-8625</a>
+      <a href="mailto:nate.galvez@gr1dlock.com"><span class="tc-label">Email</span>nate.galvez@gr1dlock.com</a>
+    </div>
+    <div class="tc-card">
+      <div class="tc-name">Donovan Gonzalez</div>
+      <a href="tel:7049755720"><span class="tc-label">Call</span>(704) 975-5720</a>
+      <a href="mailto:don.gonzalez@gr1dlock.com"><span class="tc-label">Email</span>don.gonzalez@gr1dlock.com</a>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="footer-logo">GRIDLOCK<span>.</span></div>
